@@ -56,6 +56,16 @@ public class SqlExampleController {
 		);
 	}
 
+	@GetMapping("/vun/sql/example5/api/users")
+	private List<UserEntity> listByFilterHeader(@RequestHeader("X-Filter") String name) {
+		String sql = "select * from users  where name='" + name + "'";
+		log.info("SQL (example5):" + sql);
+		return jdbcTemplate.query(
+				sql,
+				getMapper()
+		);
+	}
+
 	private RowMapper<UserEntity> getMapper() {
 		return (paramResultSet, paramInt) -> {
 			UserEntity user = new UserEntity();
