@@ -20,15 +20,19 @@ public class SqlExampleController {
 
 	@GetMapping("/vun/api/users")
 	private List<UserEntity> list(@RequestParam String name) {
+		String sql = "select * from users  where name='" + name + "'";
+		log.info("SQL: " + sql);
 		return jdbcTemplate.query(
-				"select * from users  where name='" + name + "'",
+				sql,
 				getMapper()
 		);
 	}
 
 	@PostMapping("/vun/api/users")
 	void newEmployee(@RequestBody UserEntity userEntity) {
-		jdbcTemplate.execute("INSERT INTO users(name, surname) VALUES ('" + userEntity.getName() + "','" + userEntity.getSurname() + "')");
+		String sql = "INSERT INTO users(name, surname) VALUES ('" + userEntity.getName() + "','" + userEntity.getSurname() + "')";
+		log.info("SQL: " + sql);
+		jdbcTemplate.execute(sql);
 	}
 
 	private RowMapper<UserEntity> getMapper() {
