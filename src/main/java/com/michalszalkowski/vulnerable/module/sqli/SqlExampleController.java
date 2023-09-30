@@ -4,9 +4,7 @@ import com.michalszalkowski.vulnerable.core.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,10 +16,15 @@ public class SqlExampleController {
 
 	@GetMapping("/vun/api/users")
 	private List<UserEntity> list(@RequestParam String name) {
+		return jdbcTemplate.query(
+				"select * from users  where name='" + name + "'",
+				getMapper()
+		);
+	}
 
-		String str = "select * from users  where name='" + name + "'";
-
-		return jdbcTemplate.query(str, getMapper());
+	@PostMapping("/vun/api/users")
+	void newEmployee(@RequestBody UserEntity userEntity) {
+		jdbcTemplate.execute("INSERT INTO user(name, surname) VALUES (" + userEntity.getName() + ", " + userEntity.getSurname() + ")");
 	}
 
 	private RowMapper<UserEntity> getMapper() {
