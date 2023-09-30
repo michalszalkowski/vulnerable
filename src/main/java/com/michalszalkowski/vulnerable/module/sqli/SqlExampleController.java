@@ -1,5 +1,6 @@
 package com.michalszalkowski.vulnerable.module.sqli;
 
+import com.michalszalkowski.vulnerable.core.filter.FilterDto;
 import com.michalszalkowski.vulnerable.core.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public class SqlExampleController {
 
 	private static final Logger log = LoggerFactory.getLogger(SqlExampleController.class);
 
-	@GetMapping("/vun/api/users")
+	@GetMapping("/vun/sql/example1/api/users")
 	private List<UserEntity> list(@RequestParam String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL: " + sql);
@@ -28,7 +29,17 @@ public class SqlExampleController {
 		);
 	}
 
-	@PostMapping("/vun/api/users")
+	@PostMapping("/vun/sql/example2/api/users")
+	private List<UserEntity> listByFilter(@RequestBody FilterDto filter) {
+		String sql = "select * from users  where name='" + filter.getFilter() + "'";
+		log.info("SQL: " + sql);
+		return jdbcTemplate.query(
+				sql,
+				getMapper()
+		);
+	}
+
+	@PostMapping("/vun/sql/example3/api/users")
 	void newEmployee(@RequestBody UserEntity userEntity) {
 		String sql = "INSERT INTO users(name, surname) VALUES ('" + userEntity.getName() + "','" + userEntity.getSurname() + "')";
 		log.info("SQL: " + sql);
