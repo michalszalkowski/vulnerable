@@ -24,7 +24,7 @@ public class SqlExampleController {
 
 	@PostMapping("/vun/api/users")
 	void newEmployee(@RequestBody UserEntity userEntity) {
-		jdbcTemplate.execute("INSERT INTO users(name, surname) VALUES (" + userEntity.getName() + ", " + userEntity.getSurname() + ")");
+		jdbcTemplate.execute("INSERT INTO users(name, surname) VALUES ('" + userEntity.getName() + "', '" + userEntity.getSurname() + "')");
 	}
 
 	private RowMapper<UserEntity> getMapper() {
