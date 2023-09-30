@@ -1,6 +1,8 @@
 package com.michalszalkowski.vulnerable.module.sqli;
 
 import com.michalszalkowski.vulnerable.core.user.UserEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +16,8 @@ public class SqlExampleController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	private static final Logger log = LoggerFactory.getLogger(SqlExampleController.class);
+
 	@GetMapping("/vun/api/users")
 	private List<UserEntity> list(@RequestParam String name) {
 		return jdbcTemplate.query(
@@ -24,7 +28,7 @@ public class SqlExampleController {
 
 	@PostMapping("/vun/api/users")
 	void newEmployee(@RequestBody UserEntity userEntity) {
-		jdbcTemplate.execute("INSERT INTO users(name, surname) VALUES ('" + userEntity.getName() + "', '" + userEntity.getSurname() + "')");
+		jdbcTemplate.execute("INSERT INTO users(name, surname) VALUES ('" + userEntity.getName() + "','" + userEntity.getSurname() + "')");
 	}
 
 	private RowMapper<UserEntity> getMapper() {
