@@ -17,7 +17,7 @@ curl -X POST http://localhost:8080/vun/sql/example3/api/users -H "Content-Type: 
 curl -X POST http://localhost:8080/vun/sql/example3/api/users -H "Content-Type: application/json" -d "{\"name\": \"michal\", \"surname\": \"hacker'); DELETE FROM users; -- - \"}"  
 ```
 
-## GET request - Get list of users - filter in query param
+## GET request - Get list of users - filter in cookie
 ```bash
 curl http://localhost:8080/vun/sql/example4/api/users --cookie "name=michal'%20or%201=1%20--%20-"
 ```
