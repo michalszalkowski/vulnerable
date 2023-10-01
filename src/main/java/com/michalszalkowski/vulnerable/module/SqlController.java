@@ -20,7 +20,7 @@ public class SqlController {
 
 	private static final Logger log = LoggerFactory.getLogger(SqlController.class);
 
-	@GetMapping("/vun/sql/example1/api/users")
+	@GetMapping("/vun/sql/example1/")
 	private List<UserEntity> listUsersFilterByQueryParam(@RequestParam String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example1): " + sql);
@@ -30,7 +30,7 @@ public class SqlController {
 		);
 	}
 
-	@PostMapping(value = "/vun/sql/example2/api/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/vun/sql/example2/", consumes = MediaType.APPLICATION_JSON_VALUE)
 	private List<UserEntity> listUsersFilterByJsonBody(@RequestBody FilterDto filter) {
 		String sql = "select * from users  where name='" + filter.getFilter() + "'";
 		log.info("SQL (example2): " + sql);
@@ -40,14 +40,14 @@ public class SqlController {
 		);
 	}
 
-	@PostMapping("/vun/sql/example3/api/users")
+	@PostMapping("/vun/sql/example3/")
 	void newUser(@RequestBody UserEntity userEntity) {
 		String sql = "INSERT INTO users(name, surname) VALUES ('" + userEntity.getName() + "','" + userEntity.getSurname() + "')";
 		log.info("SQL (example3): " + sql);
 		jdbcTemplate.execute(sql);
 	}
 
-	@GetMapping("/vun/sql/example4/api/users")
+	@GetMapping("/vun/sql/example4/")
 	private List<UserEntity> listUsersFilterByCookie(@CookieValue String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example4):" + sql);
@@ -57,7 +57,7 @@ public class SqlController {
 		);
 	}
 
-	@GetMapping("/vun/sql/example5/api/users")
+	@GetMapping("/vun/sql/example5/")
 	private List<UserEntity> listUsersFilterByHeader(@RequestHeader("X-Filter") String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example5):" + sql);
@@ -67,7 +67,7 @@ public class SqlController {
 		);
 	}
 
-	@PostMapping(value = "/vun/sql/example6/api/users", consumes = MediaType.APPLICATION_XML_VALUE)
+	@PostMapping(value = "/vun/sql/example6/", consumes = MediaType.APPLICATION_XML_VALUE)
 	private List<UserEntity> listUsersFilterByXmlBody(@RequestBody FilterDto filter) {
 		String sql = "select * from users  where name='" + filter.getFilter() + "'";
 		log.info("SQL (example6): " + sql);
