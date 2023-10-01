@@ -46,3 +46,18 @@ curl -X POST http://localhost:8080/vun/sql/example6/api/users -H "Content-Type: 
 ```bash
 curl http://localhost:8080/vun/cmd/example1/?cmd=pwd
 ```
+
+### POST request - cmd filter by json body
+```bash
+curl -X POST http://localhost:8080/vun/cmd/example2/ -H "Content-Type: application/json" -d "{\"filter\": \"pwd\"}"  
+```
+
+### POST request - cmd filter by xml body
+```bash
+curl -X POST http://localhost:8080/vun/cmd/example3/ -H "Content-Type: application/xml" -d "<filters><filter>pwd</filter></filters>"  
+```
+
+### GET request - cmd in cookie
+```bash
+curl http://localhost:8080/vun/cmd/example4/ --cookie "cmd=pwd"
+```
