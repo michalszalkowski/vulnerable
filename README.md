@@ -33,3 +33,9 @@ curl http://localhost:8080/vun/sql/example4/api/users --cookie "name=michal'%20o
 curl http://localhost:8080/vun/sql/example5/api/users -H "X-Filter:michal"
 curl http://localhost:8080/vun/sql/example5/api/users -H "X-Filter:michal' or 1=1 -- -"
 ```
+
+### POST request - Get list of users - filter by xml body
+```bash
+curl -X POST http://localhost:8080/vun/sql/example6/api/users -H "Content-Type: application/xml" -d "<filters><filter>michal</filter></filters>"  
+curl -X POST http://localhost:8080/vun/sql/example6/api/users -H "Content-Type: application/xml" -d "<filters><filter>michal' or 1=1 -- -</filter></filters>"
+```

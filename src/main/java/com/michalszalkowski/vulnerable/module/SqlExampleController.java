@@ -5,6 +5,7 @@ import com.michalszalkowski.vulnerable.core.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class SqlExampleController {
 		);
 	}
 
-	@PostMapping("/vun/sql/example2/api/users")
+	@PostMapping(value = "/vun/sql/example2/api/users", consumes = MediaType.APPLICATION_JSON_VALUE)
 	private List<UserEntity> listUsersFilterByJsonBody(@RequestBody FilterDto filter) {
 		String sql = "select * from users  where name='" + filter.getFilter() + "'";
 		log.info("SQL (example2): " + sql);
@@ -60,6 +61,16 @@ public class SqlExampleController {
 	private List<UserEntity> listUsersFilterByHeader(@RequestHeader("X-Filter") String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example5):" + sql);
+		return jdbcTemplate.query(
+				sql,
+				getMapper()
+		);
+	}
+
+	@PostMapping(value = "/vun/sql/example6/api/users", consumes = MediaType.APPLICATION_XML_VALUE)
+	private List<UserEntity> listUsersFilterByXmlBody(@RequestBody FilterDto filter) {
+		String sql = "select * from users  where name='" + filter.getFilter() + "'";
+		log.info("SQL (example6): " + sql);
 		return jdbcTemplate.query(
 				sql,
 				getMapper()
