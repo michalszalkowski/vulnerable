@@ -20,7 +20,7 @@ public class SqlExampleController {
 	private static final Logger log = LoggerFactory.getLogger(SqlExampleController.class);
 
 	@GetMapping("/vun/sql/example1/api/users")
-	private List<UserEntity> list(@RequestParam String name) {
+	private List<UserEntity> listUsersFilterByQueryParam(@RequestParam String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example1): " + sql);
 		return jdbcTemplate.query(
@@ -30,7 +30,7 @@ public class SqlExampleController {
 	}
 
 	@PostMapping("/vun/sql/example2/api/users")
-	private List<UserEntity> listByFilterBody(@RequestBody FilterDto filter) {
+	private List<UserEntity> listUsersFilterByJsonBody(@RequestBody FilterDto filter) {
 		String sql = "select * from users  where name='" + filter.getFilter() + "'";
 		log.info("SQL (example2): " + sql);
 		return jdbcTemplate.query(
@@ -47,7 +47,7 @@ public class SqlExampleController {
 	}
 
 	@GetMapping("/vun/sql/example4/api/users")
-	private List<UserEntity> listByFilterCookie(@CookieValue String name) {
+	private List<UserEntity> listUsersFilterByCookie(@CookieValue String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example4):" + sql);
 		return jdbcTemplate.query(
@@ -57,7 +57,7 @@ public class SqlExampleController {
 	}
 
 	@GetMapping("/vun/sql/example5/api/users")
-	private List<UserEntity> listByFilterHeader(@RequestHeader("X-Filter") String name) {
+	private List<UserEntity> listUsersFilterByHeader(@RequestHeader("X-Filter") String name) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example5):" + sql);
 		return jdbcTemplate.query(
