@@ -61,3 +61,8 @@ curl -X POST http://localhost:8080/vun/cmd/example3/ -H "Content-Type: applicati
 ```bash
 curl http://localhost:8080/vun/cmd/example4/ --cookie "cmd=pwd"
 ```
+
+### GET request - cmd in header
+```bash
+curl http://localhost:8080/vun/cmd/example5/ -H "X-Filter:pwd"
+```

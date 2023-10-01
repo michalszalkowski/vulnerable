@@ -40,6 +40,11 @@ public class CmdController {
 		extracted(cmd);
 	}
 
+	@GetMapping("/vun/cmd/example5/")
+	private void cmdByHeader(@RequestHeader("X-Filter") String cmd) {
+		log.info("CMD (example5): " + cmd);
+		extracted(cmd);
+	}
 
 	private static void extracted(String cmd) {
 		ProcessBuilder processBuilder = new ProcessBuilder();
