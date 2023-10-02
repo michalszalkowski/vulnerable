@@ -21,27 +21,27 @@ public class CmdController {
 	private static final Logger log = LoggerFactory.getLogger(CmdController.class);
 
 	@GetMapping("/vun/cmd/example1/{test-id}")
-	private String cmdByQueryParam(@RequestParam String cmd, @PathVariable("test-id") String testId) throws IOException {
+	private String payloadInQueryParam(@RequestParam String cmd, @PathVariable("test-id") String testId) throws IOException {
 		return execute("example1 - " + testId, cmd);
 	}
 
 	@PostMapping(value = "/vun/cmd/example2/", consumes = MediaType.APPLICATION_JSON_VALUE)
-	private String cmdByJsonBody(@RequestBody FilterDto filter) throws IOException {
+	private String payloadInJsonBody(@RequestBody FilterDto filter) throws IOException {
 		return execute("example2", filter.getFilter());
 	}
 
 	@PostMapping(value = "/vun/cmd/example3/", consumes = MediaType.APPLICATION_XML_VALUE)
-	private String cmdByXmlBody(@RequestBody FilterDto filter) throws IOException {
+	private String payloadInXmlBody(@RequestBody FilterDto filter) throws IOException {
 		return execute("example3", filter.getFilter());
 	}
 
 	@GetMapping("/vun/cmd/example4/")
-	private String cmdByCookie(@CookieValue String cmd) throws IOException {
+	private String payloadInCookie(@CookieValue String cmd) throws IOException {
 		return execute("example4", cmd);
 	}
 
 	@GetMapping("/vun/cmd/example5/")
-	private String cmdByHeader(@RequestHeader("X-Filter") String cmd) throws IOException {
+	private String payloadInHeader(@RequestHeader("X-Filter") String cmd) throws IOException {
 		return execute("example5", cmd);
 	}
 
