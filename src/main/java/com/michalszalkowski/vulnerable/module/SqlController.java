@@ -85,12 +85,12 @@ public class SqlController {
 		);
 	}
 
-	@PostMapping(value = "/vun/sql/example7/")
-	private List<UserEntity> uploadCSVFile(@RequestParam("file") MultipartFile file) throws IOException {
+	@PostMapping(value = "/vun/sql/example7/{test-id}")
+	private List<UserEntity> uploadCSVFile(@RequestParam("file") MultipartFile file, @PathVariable("test-id") String testId) throws IOException {
 		List<UserEntity> users = UserCSVHelper.csvToObj(file.getInputStream());
 		for (UserEntity user : users) {
 			String sql = "INSERT INTO users(name, surname) VALUES ('" + user.getName() + "','" + user.getSurname() + "')";
-			log.info("SQL (example7): " + sql);
+			log.info("SQL (example7 -  " + testId + "):" + sql);
 			jdbcTemplate.execute(sql);
 		}
 		return users;
