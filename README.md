@@ -74,6 +74,13 @@ curl http://localhost:8080/vun/cmd/example4/ --cookie "cmd=pwd"
 curl http://localhost:8080/vun/cmd/example5/ -H "X-Filter:pwd"
 ```
 
+### POST request - payload in csv file
+```bash
+echo "\"name\",\"surname\"" > /tmp/file2.csv
+echo "\"michal\",\"pwd\"" >> /tmp/file2.csv
+curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/cmd/example6/ --form file="@/tmp/file2.csv"
+```
+
 ## JNDI Injection
 
 ### GET request - payload in query param

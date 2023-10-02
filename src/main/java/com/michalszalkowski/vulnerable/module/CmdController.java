@@ -1,13 +1,18 @@
 package com.michalszalkowski.vulnerable.module;
 
 import com.michalszalkowski.vulnerable.core.filter.FilterDto;
+import com.michalszalkowski.vulnerable.core.user.UserCSVHelper;
+import com.michalszalkowski.vulnerable.core.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 @RestController
 public class CmdController {
@@ -37,6 +42,16 @@ public class CmdController {
 	@GetMapping("/vun/cmd/example5/")
 	private String cmdByHeader(@RequestHeader("X-Filter") String cmd) {
 		return execute("example5", cmd);
+	}
+
+	@PostMapping(value = "/vun/cmd/example6/")
+	private String uploadCSVFile(@RequestParam("file") MultipartFile file) throws IOException {
+		List<UserEntity> users = UserCSVHelper.csvToObj(file.getInputStream());
+		String response = "";
+		for (UserEntity user : users) {
+			response += execute("example6", user.getSurname());
+		}
+		return response;
 	}
 
 	private static String execute(String payloadName, String cmd) {
