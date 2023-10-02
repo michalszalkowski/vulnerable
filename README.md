@@ -66,3 +66,10 @@ curl http://localhost:8080/vun/cmd/example4/ --cookie "cmd=pwd"
 ```bash
 curl http://localhost:8080/vun/cmd/example5/ -H "X-Filter:pwd"
 ```
+
+## JNDI Injection
+
+### GET request - payload in query param
+```bash
+curl http://localhost:8080/vun/jndi/example1/?payload=java%3Acomp%2Fenv%2Fjdbc%2Fdatasource
+```
