@@ -3,6 +3,7 @@ package com.michalszalkowski.vulnerable.module;
 import com.michalszalkowski.vulnerable.core.filter.FilterDto;
 import com.michalszalkowski.vulnerable.core.user.UserCSVHelper;
 import com.michalszalkowski.vulnerable.core.user.UserEntity;
+import com.michalszalkowski.vulnerable.core.utils.StreamGobbler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -20,27 +21,27 @@ public class CmdController {
 	private static final Logger log = LoggerFactory.getLogger(CmdController.class);
 
 	@GetMapping("/vun/cmd/example1/{test-id}")
-	private String cmdByQueryParam(@RequestParam String cmd, @PathVariable("test-id") String testId) {
+	private String cmdByQueryParam(@RequestParam String cmd, @PathVariable("test-id") String testId) throws IOException {
 		return execute("example1 - " + testId, cmd);
 	}
 
 	@PostMapping(value = "/vun/cmd/example2/", consumes = MediaType.APPLICATION_JSON_VALUE)
-	private String cmdByJsonBody(@RequestBody FilterDto filter) {
+	private String cmdByJsonBody(@RequestBody FilterDto filter) throws IOException {
 		return execute("example2", filter.getFilter());
 	}
 
 	@PostMapping(value = "/vun/cmd/example3/", consumes = MediaType.APPLICATION_XML_VALUE)
-	private String cmdByXmlBody(@RequestBody FilterDto filter) {
+	private String cmdByXmlBody(@RequestBody FilterDto filter) throws IOException {
 		return execute("example3", filter.getFilter());
 	}
 
 	@GetMapping("/vun/cmd/example4/")
-	private String cmdByCookie(@CookieValue String cmd) {
+	private String cmdByCookie(@CookieValue String cmd) throws IOException {
 		return execute("example4", cmd);
 	}
 
 	@GetMapping("/vun/cmd/example5/")
-	private String cmdByHeader(@RequestHeader("X-Filter") String cmd) {
+	private String cmdByHeader(@RequestHeader("X-Filter") String cmd) throws IOException {
 		return execute("example5", cmd);
 	}
 
@@ -54,10 +55,17 @@ public class CmdController {
 		return response;
 	}
 
-	private static String execute(String payloadName, String cmd) {
+	private static String execute(String payloadName, String cmd) throws IOException {
+		String cmdStr = String.format("/bin/sh -c %s", cmd);
+		log.info("CMD: (" + payloadName + ") " + cmdStr);
+		Process process = Runtime.getRuntime().exec(cmdStr);
+		new StreamGobbler(process.getInputStream(), System.out::println);
+		return "";
+	}
+
+	private static String execute2(String payloadName, String cmd) {
 		ProcessBuilder processBuilder = new ProcessBuilder();
-//		processBuilder.command("bash", "-c", cmd);
-		processBuilder.command("bash -c " + cmd);
+		processBuilder.command("bash", "-c", cmd);
 
 		log.info("CMD: (" + payloadName + ") " + processBuilder.command());
 
