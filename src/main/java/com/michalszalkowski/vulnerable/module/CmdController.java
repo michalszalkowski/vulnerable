@@ -1,7 +1,6 @@
 package com.michalszalkowski.vulnerable.module;
 
 import com.michalszalkowski.vulnerable.core.filter.FilterDto;
-import com.michalszalkowski.vulnerable.core.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
 
 @RestController
 public class CmdController {
@@ -18,37 +16,34 @@ public class CmdController {
 
 	@GetMapping("/vun/cmd/example1/")
 	private void cmdByQueryParam(@RequestParam String cmd) {
-		log.info("CMD (example1): " + cmd);
-		extracted(cmd);
+		execute("example1", cmd);
 	}
 
 	@PostMapping(value = "/vun/cmd/example2/", consumes = MediaType.APPLICATION_JSON_VALUE)
 	private void cmdByJsonBody(@RequestBody FilterDto filter) {
-		log.info("CMD (example2): " + filter.getFilter());
-		extracted(filter.getFilter());
+		execute("example2", filter.getFilter());
 	}
 
 	@PostMapping(value = "/vun/cmd/example3/", consumes = MediaType.APPLICATION_XML_VALUE)
 	private void cmdByXmlBody(@RequestBody FilterDto filter) {
-		log.info("CMD (example3): " + filter.getFilter());
-		extracted(filter.getFilter());
+		execute("example3", filter.getFilter());
 	}
 
 	@GetMapping("/vun/cmd/example4/")
 	private void cmdByCookie(@CookieValue String cmd) {
-		log.info("CMD (example4): " + cmd);
-		extracted(cmd);
+		execute("example4", cmd);
 	}
 
 	@GetMapping("/vun/cmd/example5/")
 	private void cmdByHeader(@RequestHeader("X-Filter") String cmd) {
-		log.info("CMD (example5): " + cmd);
-		extracted(cmd);
+		execute("example5", cmd);
 	}
 
-	private static void extracted(String cmd) {
+	private static void execute(String payloadName, String cmd) {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		processBuilder.command("bash", "-c", cmd);
+
+		log.info("CMD: (" + payloadName + ") " + processBuilder.command());
 
 		try {
 			Process process = processBuilder.start();
@@ -59,9 +54,9 @@ public class CmdController {
 				output.append(line + "\n");
 			}
 			if (process.waitFor() == 0) {
-				log.info("CMD (result): " + output);
+				log.info("CMD: (result) " + output);
 			} else {
-				log.info("CMD (result error)");
+				log.info("CMD: (result error)");
 			}
 		} catch (Exception e) {
 			log.error("Error " + e.getMessage());
