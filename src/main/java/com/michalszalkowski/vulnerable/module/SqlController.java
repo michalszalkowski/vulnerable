@@ -28,10 +28,14 @@ public class SqlController {
 	private List<UserEntity> listUsersFilterByQueryParam(@RequestParam String name, @PathParam("test-id") String testId) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example1 -  " + testId + "):" + sql);
-		return jdbcTemplate.query(
-				sql,
-				getMapper()
-		);
+		try {
+			return jdbcTemplate.query(
+					sql,
+					getMapper()
+			);
+		} catch (Exception e) {
+			return List.of();
+		}
 	}
 
 	@PostMapping(value = "/vun/sql/example2/", consumes = MediaType.APPLICATION_JSON_VALUE)
