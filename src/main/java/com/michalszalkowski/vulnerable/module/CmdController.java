@@ -56,7 +56,7 @@ public class CmdController {
 	}
 
 	private static String execute(String payloadName, String cmd) throws IOException {
-		String cmdStr = String.format("/bin/sh -c %s", cmd);
+		String cmdStr = String.format("bash -c %s", cmd);
 		log.info("CMD: (" + payloadName + ") " + cmdStr);
 		Process process = Runtime.getRuntime().exec(cmdStr);
 		new StreamGobbler(process.getInputStream(), System.out::println);
