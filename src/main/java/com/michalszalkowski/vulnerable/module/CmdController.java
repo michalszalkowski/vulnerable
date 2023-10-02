@@ -57,7 +57,7 @@ public class CmdController {
 	private static String execute(String payloadName, String cmd) {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 //		processBuilder.command("bash", "-c", cmd);
-		processBuilder.command("bash -c" + cmd);
+		processBuilder.command("bash -c " + cmd);
 
 		log.info("CMD: (" + payloadName + ") " + processBuilder.command());
 
