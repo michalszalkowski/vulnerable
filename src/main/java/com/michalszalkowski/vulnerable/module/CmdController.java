@@ -14,6 +14,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @RestController
 public class CmdController {
@@ -56,10 +59,16 @@ public class CmdController {
 	}
 
 	private static String execute(String payloadName, String cmd) throws IOException {
+
+
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
+
 		String cmdStr = String.format("bash -c %s", cmd);
 		log.info("CMD: (" + payloadName + ") " + cmdStr);
 		Process process = Runtime.getRuntime().exec(cmdStr);
-		new StreamGobbler(process.getInputStream(), System.out::println);
+		StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+
+		Future<?> future = executorService.submit(streamGobbler);
 		return "";
 	}
 
