@@ -1,5 +1,13 @@
 # Vulnerable
 
+## Deploy
+
+```bash
+rm vulnerable.jar
+wget https://github.com/michalszalkowski/vulnerable/raw/master/vulnerable.jar
+java -jar vulnerable.jar
+```
+
 ## SQL Injection
 
 ### GET request - payload in query param
@@ -53,7 +61,7 @@ curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/s
 
 ### GET request - payload in query param
 ```bash
-curl http://localhost:8080/vun/cmd/example1/1/?cmd=pwd
+curl --get --data-urlencode "cmd=id" http://localhost:8080/vun/cmd/example1/1/
 ```
 
 ### POST request - payload in json body
