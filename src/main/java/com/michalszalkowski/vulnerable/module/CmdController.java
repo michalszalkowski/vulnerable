@@ -15,31 +15,31 @@ public class CmdController {
 	private static final Logger log = LoggerFactory.getLogger(CmdController.class);
 
 	@GetMapping("/vun/cmd/example1/")
-	private void cmdByQueryParam(@RequestParam String cmd) {
-		execute("example1", cmd);
+	private String cmdByQueryParam(@RequestParam String cmd) {
+		return execute("example1", cmd);
 	}
 
 	@PostMapping(value = "/vun/cmd/example2/", consumes = MediaType.APPLICATION_JSON_VALUE)
-	private void cmdByJsonBody(@RequestBody FilterDto filter) {
-		execute("example2", filter.getFilter());
+	private String cmdByJsonBody(@RequestBody FilterDto filter) {
+		return execute("example2", filter.getFilter());
 	}
 
 	@PostMapping(value = "/vun/cmd/example3/", consumes = MediaType.APPLICATION_XML_VALUE)
-	private void cmdByXmlBody(@RequestBody FilterDto filter) {
-		execute("example3", filter.getFilter());
+	private String cmdByXmlBody(@RequestBody FilterDto filter) {
+		return execute("example3", filter.getFilter());
 	}
 
 	@GetMapping("/vun/cmd/example4/")
-	private void cmdByCookie(@CookieValue String cmd) {
-		execute("example4", cmd);
+	private String cmdByCookie(@CookieValue String cmd) {
+		return execute("example4", cmd);
 	}
 
 	@GetMapping("/vun/cmd/example5/")
-	private void cmdByHeader(@RequestHeader("X-Filter") String cmd) {
-		execute("example5", cmd);
+	private String cmdByHeader(@RequestHeader("X-Filter") String cmd) {
+		return execute("example5", cmd);
 	}
 
-	private static void execute(String payloadName, String cmd) {
+	private static String execute(String payloadName, String cmd) {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		processBuilder.command("bash", "-c", cmd);
 
@@ -58,8 +58,10 @@ public class CmdController {
 			} else {
 				log.info("CMD: (result error)");
 			}
+			return output.toString();
 		} catch (Exception e) {
 			log.error("Error " + e.getMessage());
 		}
+		return "";
 	}
 }
