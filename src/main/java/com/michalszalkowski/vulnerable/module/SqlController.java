@@ -25,7 +25,7 @@ public class SqlController {
 	private static final Logger log = LoggerFactory.getLogger(SqlController.class);
 
 	@GetMapping("/vun/sql/example1/{test-id}")
-	private List<UserEntity> listUsersFilterByQueryParam(@RequestParam String name, @PathParam("test-id") String testId) {
+	private List<UserEntity> listUsersFilterByQueryParam(@RequestParam String name, @PathVariable("test-id") String testId) {
 		String sql = "select * from users  where name='" + name + "'";
 		log.info("SQL (example1 -  " + testId + "):" + sql);
 		try {
