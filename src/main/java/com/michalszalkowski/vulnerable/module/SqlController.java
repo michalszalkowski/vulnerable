@@ -1,6 +1,7 @@
 package com.michalszalkowski.vulnerable.module;
 
 import com.michalszalkowski.vulnerable.core.filter.FilterDto;
+import com.michalszalkowski.vulnerable.core.user.UserCSVHelper;
 import com.michalszalkowski.vulnerable.core.user.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -75,6 +78,17 @@ public class SqlController {
 				sql,
 				getMapper()
 		);
+	}
+
+	@PostMapping(value = "/vun/sql/example7/")
+	private List<UserEntity> uploadCSVFile(@RequestParam("file") MultipartFile file) throws IOException {
+		List<UserEntity> users = UserCSVHelper.csvToObj(file.getInputStream());
+		for (UserEntity user : users) {
+			String sql = "INSERT INTO users(name, surname) VALUES ('" + user.getName() + "','" + user.getSurname() + "')";
+			log.info("SQL (example7): " + sql);
+			jdbcTemplate.execute(sql);
+		}
+		return users;
 	}
 
 	private RowMapper<UserEntity> getMapper() {

