@@ -19,9 +19,9 @@ public class CmdController {
 
 	private static final Logger log = LoggerFactory.getLogger(CmdController.class);
 
-	@GetMapping("/vun/cmd/example1/")
-	private String cmdByQueryParam(@RequestParam String cmd) {
-		return execute("example1", cmd);
+	@GetMapping("/vun/cmd/example1/{test-id}")
+	private String cmdByQueryParam(@RequestParam String cmd, @PathVariable("test-id") String testId) {
+		return execute("example1 - " + testId, cmd);
 	}
 
 	@PostMapping(value = "/vun/cmd/example2/", consumes = MediaType.APPLICATION_JSON_VALUE)
