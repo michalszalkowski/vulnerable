@@ -64,10 +64,10 @@ public class SqlController {
 		);
 	}
 
-	@GetMapping("/vun/sql/example5/")
-	private List<UserEntity> listUsersFilterByHeader(@RequestHeader("X-Filter") String name) {
+	@GetMapping("/vun/sql/example5/{test-id}")
+	private List<UserEntity> listUsersFilterByHeader(@RequestHeader("X-Filter") String name, @PathVariable("test-id") String testId) {
 		String sql = "select * from users  where name='" + name + "'";
-		log.info("SQL (example5):" + sql);
+		log.info("SQL (example5 -  " + testId + "):" + sql);
 		return jdbcTemplate.query(
 				sql,
 				getMapper()
