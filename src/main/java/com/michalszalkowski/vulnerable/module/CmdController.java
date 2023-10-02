@@ -3,7 +3,6 @@ package com.michalszalkowski.vulnerable.module;
 import com.michalszalkowski.vulnerable.core.filter.FilterDto;
 import com.michalszalkowski.vulnerable.core.user.UserCSVHelper;
 import com.michalszalkowski.vulnerable.core.user.UserEntity;
-import com.michalszalkowski.vulnerable.core.utils.StreamGobbler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -14,9 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 @RestController
 public class CmdController {
@@ -59,42 +56,15 @@ public class CmdController {
 	}
 
 	private static String execute(String payloadName, String cmd) throws IOException {
-
-
-		ExecutorService executorService = Executors.newFixedThreadPool(10);
-
 		String cmdStr = String.format("bash -c %s", cmd);
-		log.info("CMD: (" + payloadName + ") " + cmdStr);
 		Process process = Runtime.getRuntime().exec(cmdStr);
-		StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
-
-		Future<?> future = executorService.submit(streamGobbler);
-		return "";
+		log.info("CMD: (" + payloadName + ") " + cmdStr);
+		return new BufferedReader(new InputStreamReader(process.getInputStream())).lines().collect(Collectors.joining());
 	}
 
-	private static String execute2(String payloadName, String cmd) {
-		ProcessBuilder processBuilder = new ProcessBuilder();
-		processBuilder.command("bash", "-c", cmd);
-
-		log.info("CMD: (" + payloadName + ") " + processBuilder.command());
-
-		try {
-			Process process = processBuilder.start();
-			StringBuilder output = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				output.append(line + "\n");
-			}
-			if (process.waitFor() == 0) {
-				log.info("CMD: (result) " + output);
-			} else {
-				log.info("CMD: (result error)");
-			}
-			return output.toString();
-		} catch (Exception e) {
-			log.error("Error " + e.getMessage());
-		}
-		return "";
+	private static String execute1(String payloadName, String cmd) throws IOException {
+		ProcessBuilder process = new ProcessBuilder().command("bash", "-c", cmd);
+		log.info("CMD: (" + payloadName + ") " + process.command());
+		return new BufferedReader(new InputStreamReader(process.start().getInputStream())).lines().collect(Collectors.joining());
 	}
 }
