@@ -90,10 +90,3 @@ echo "\"name\",\"surname\"" > /tmp/file2.csv
 echo "\"michal\",\"pwd\"" >> /tmp/file2.csv
 curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/cmd/example6/ --form file="@/tmp/file2.csv"
 ```
-
-## JNDI Injection
-
-### GET request - payload in query param
-```bash
-curl http://localhost:8080/vun/jndi/example1/?payload=java%3Acomp%2Fenv%2Fjdbc%2Fdatasource
-```
