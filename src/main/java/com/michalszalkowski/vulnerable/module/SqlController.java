@@ -26,7 +26,7 @@ public class SqlController {
 	@GetMapping("/vun/sql/example1/{test-id}")
 	private List<UserEntity> payloadInQueryParam(@RequestParam String name, @PathVariable("test-id") String testId) {
 		String sql = "select * from users  where name='" + name + "'";
-		log.info("SQL (example1 -  " + testId + "):" + sql);
+		log.info("SQL (example1 - " + testId + "):" + sql);
 		try {
 			return jdbcTemplate.query(
 					sql,
@@ -67,7 +67,7 @@ public class SqlController {
 	@GetMapping("/vun/sql/example5/{test-id}")
 	private List<UserEntity> payloadInHeader(@RequestHeader("X-Filter") String name, @PathVariable("test-id") String testId) {
 		String sql = "select * from users  where name='" + name + "'";
-		log.info("SQL (example5 -  " + testId + "):" + sql);
+		log.info("SQL (example5 - " + testId + "):" + sql);
 		return jdbcTemplate.query(
 				sql,
 				getMapper()
@@ -89,7 +89,7 @@ public class SqlController {
 		List<UserEntity> users = UserCSVHelper.csvToObj(file.getInputStream());
 		for (UserEntity user : users) {
 			String sql = "INSERT INTO users(name, surname) VALUES ('" + user.getName() + "','" + user.getSurname() + "')";
-			log.info("SQL (example7 -  " + testId + "):" + sql);
+			log.info("SQL (example7 - " + testId + "):" + sql);
 			jdbcTemplate.execute(sql);
 		}
 		return users;

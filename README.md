@@ -90,3 +90,8 @@ echo "\"name\",\"surname\"" > /tmp/file2.csv
 echo "\"michal\",\"id\"" >> /tmp/file2.csv
 curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/cmd/example6/1/ --form file="@/tmp/file2.csv"
 ```
+
+## JNDI Injection
+```bash
+curl --get --data-urlencode "payload=lion" http://localhost:8080/vun/jndi/example1/1/
+```
