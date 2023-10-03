@@ -62,7 +62,6 @@ curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/s
 ### GET request - payload in query param
 ```bash
 curl --get --data-urlencode "cmd=id" http://localhost:8080/vun/cmd/example1/1/
-curl --get --data-urlencode "cmd=id; ls -la" http://localhost:8080/vun/cmd/example1/2/
 ```
 
 ### POST request - payload in json body
