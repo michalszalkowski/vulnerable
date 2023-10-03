@@ -55,14 +55,14 @@ public class CmdController {
 		return response;
 	}
 
-	private static String execute(String payloadName, String cmd) throws IOException {
+	private static String execute1(String payloadName, String cmd) throws IOException {
 		String cmdStr = String.format("bash -c %s", cmd);
 		ProcessBuilder process = new ProcessBuilder().command(cmdStr.split(" "));
 		log.info("CMD: (" + payloadName + ") " + process.command());
 		return new BufferedReader(new InputStreamReader(process.start().getInputStream())).lines().collect(Collectors.joining());
 	}
 
-	private static String execute1(String payloadName, String cmd) {
+	private static String execute(String payloadName, String cmd) {
 		try {
 			String cmdStr = String.format("bash -c %s", cmd);
 			Process process = Runtime.getRuntime().exec(cmdStr.split(" "));

@@ -67,7 +67,6 @@ curl --get --data-urlencode "cmd=id" http://localhost:8080/vun/cmd/example1/1/
 ### POST request - payload in json body
 ```bash
 curl -X POST http://localhost:8080/vun/cmd/example2/1/ -H "Content-Type: application/json" -d "{\"filter\": \"pwd\"}"  
-curl -X POST http://localhost:8080/vun/cmd/example2/2/ -H "Content-Type: application/json" -d "{\"filter\": \"pwd\"}"  
 ```
 
 ### POST request - payload in xml body
