@@ -62,31 +62,32 @@ curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/s
 ### GET request - payload in query param
 ```bash
 curl --get --data-urlencode "cmd=id" http://localhost:8080/vun/cmd/example1/1/
+curl --get --data-urlencode "cmd=id; ls -la" http://localhost:8080/vun/cmd/example1/2/
 ```
 
 ### POST request - payload in json body
 ```bash
-curl -X POST http://localhost:8080/vun/cmd/example2/ -H "Content-Type: application/json" -d "{\"filter\": \"pwd\"}"  
+curl -X POST http://localhost:8080/vun/cmd/example2/1/ -H "Content-Type: application/json" -d "{\"filter\": \"pwd\"}"  
 ```
 
 ### POST request - payload in xml body
 ```bash
-curl -X POST http://localhost:8080/vun/cmd/example3/ -H "Content-Type: application/xml" -d "<filters><filter>pwd</filter></filters>"  
+curl -X POST http://localhost:8080/vun/cmd/example3/1/ -H "Content-Type: application/xml" -d "<filters><filter>pwd</filter></filters>"  
 ```
 
 ### GET request - payload in cookie
 ```bash
-curl http://localhost:8080/vun/cmd/example4/ --cookie "cmd=pwd"
+curl http://localhost:8080/vun/cmd/example4/1/ --cookie "cmd=pwd"
 ```
 
 ### GET request - payload in header
 ```bash
-curl http://localhost:8080/vun/cmd/example5/ -H "X-Filter:pwd"
+curl http://localhost:8080/vun/cmd/example5/1/ -H "X-Filter:pwd"
 ```
 
 ### POST request - payload in csv file
 ```bash
 echo "\"name\",\"surname\"" > /tmp/file2.csv
 echo "\"michal\",\"pwd\"" >> /tmp/file2.csv
-curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/cmd/example6/ --form file="@/tmp/file2.csv"
+curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/cmd/example6/1/ --form file="@/tmp/file2.csv"
 ```
