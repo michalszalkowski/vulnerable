@@ -28,8 +28,8 @@ public class JndiController {
 
 	@GetMapping("/vun/jndi/example2/{test-id}")
 	private Object byQueryParam2(@RequestParam String payload, @PathVariable("test-id") String testId) throws Exception {
-		log.info("JNDI (example2 - " + testId + "):" + payload);
-		RMIInterface lookup = (RMIInterface) Naming.lookup("//" + payload + "/HackerServer");
+		log.info("JNDI (example2 - " + testId + "): " + payload);
+		RMIInterface lookup = (RMIInterface) Naming.lookup("//" + payload + "/MyServer");
 		return lookup.execute();
 	}
 }

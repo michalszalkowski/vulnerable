@@ -7,7 +7,7 @@ public class ServerExample {
 	public static void main(String[] args) {
 		try {
 			LocateRegistry.createRegistry(1099);
-			Naming.rebind("//localhost/HackerServer", new RemoteObject());
+			Naming.rebind("//localhost/MyServer", new RemoteObject());
 			System.err.println("Server ready");
 		} catch (Exception e) {
 			System.err.println("Server exception: " + e.toString());
