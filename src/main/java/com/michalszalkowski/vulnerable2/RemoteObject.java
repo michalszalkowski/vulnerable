@@ -1,4 +1,4 @@
-package com.michalszalkowski.vulnerable.core.jndi;
+package com.michalszalkowski.vulnerable2;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

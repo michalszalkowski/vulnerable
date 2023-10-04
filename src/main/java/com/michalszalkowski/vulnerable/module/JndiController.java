@@ -1,6 +1,6 @@
 package com.michalszalkowski.vulnerable.module;
 
-import com.michalszalkowski.vulnerable.core.jndi.RMIInterface;
+import com.michalszalkowski.vulnerable2.RMIInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

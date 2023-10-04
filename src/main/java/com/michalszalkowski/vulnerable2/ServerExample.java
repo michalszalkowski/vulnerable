@@ -1,7 +1,5 @@
 package com.michalszalkowski.vulnerable2;
 
-import com.michalszalkowski.vulnerable.core.jndi.RemoteObject;
-
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
