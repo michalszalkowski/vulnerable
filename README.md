@@ -94,4 +94,5 @@ curl  -X POST -H "Content-Type: multipart/form-data" http://localhost:8080/vun/c
 ## JNDI Injection
 ```bash
 curl --get --data-urlencode "payload=dog" http://localhost:8080/vun/jndi/example1/1/
+curl --get --data-urlencode "payload=localhost" http://localhost:8080/vun/jndi/example2/1/
 ```
