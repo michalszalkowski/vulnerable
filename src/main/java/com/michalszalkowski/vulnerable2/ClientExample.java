@@ -8,7 +8,13 @@ import java.rmi.RemoteException;
 public class ClientExample {
 
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
-		RMIInterface lookup = (RMIInterface) Naming.lookup("//127.0.0.1/MyServer");
+
+		String host = "localhost";
+		if (args.length > 0) {
+			host = args[0];
+		}
+
+		RMIInterface lookup = (RMIInterface) Naming.lookup("//" + host + "/MyServer");
 		System.out.println(lookup.execute());
 	}
 
